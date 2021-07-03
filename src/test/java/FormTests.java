@@ -1,7 +1,6 @@
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Keys;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byTagName;
@@ -32,14 +31,9 @@ public class FormTests {
         $("select.react-datepicker__year-select").selectOptionByValue("1980");
         $x("//div[@class='react-datepicker__week']/*[text()=21]").click();
 
-        $("#subjectsInput").setValue("Maths");
-        $("#subjectsInput").sendKeys(Keys.ENTER);
-
-        $("#subjectsInput").setValue("Accounting");
-        $("#subjectsInput").sendKeys(Keys.ENTER);
-
-        $("#subjectsInput").setValue("History");
-        $("#subjectsInput").sendKeys(Keys.ENTER);
+        $("#subjectsInput").setValue("Maths").pressEnter();
+        $("#subjectsInput").setValue("Accounting").pressEnter();
+        $("#subjectsInput").setValue("History").pressEnter();
 
         File file = new File("src/test/resources/flower.jpg");
         $("#uploadPicture").uploadFile(file);
@@ -54,6 +48,7 @@ public class FormTests {
         $(byText("Uttar Pradesh")).click();
         $(byText("Select City")).click();
         $(byText("Agra")).click();
+
         $("button#submit").click();
 
         $(byText("Thanks for submitting the form")).shouldBe();
