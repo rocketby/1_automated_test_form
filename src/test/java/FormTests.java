@@ -2,8 +2,8 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.exist;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byTagName;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -23,9 +23,8 @@ public class FormTests {
         $("#firstName").setValue("Tatiana");
         $("#lastName").setValue("Ivanovna");
         $("#userEmail").setValue("test@tt.tt");
-        $(byText("Female")).click();
+        $("#genterWrapper").$(byText("Female")).click();
         $("#userNumber").setValue("1234567898");
-
         $("#dateOfBirthInput").click();
         $("select.react-datepicker__month-select").selectOptionByValue("10");
         $("select.react-datepicker__year-select").selectOptionByValue("1980");
@@ -38,20 +37,19 @@ public class FormTests {
         File file = new File("src/test/resources/flower.jpg");
         $("#uploadPicture").uploadFile(file);
 
-        $(byText("Sports")).click();
-        $(byText("Music")).click();
+        $("#hobbiesWrapper").$(byText("Sports")).click();
+        $("#hobbiesWrapper").$(byText("Music")).click();
 
-        $(byTagName("textarea")).setValue("village Druzhnaya, str. Central, h. 90, 234931");
+        $("#currentAddress").setValue("village Druzhnaya, str. Central, h. 90, 234931");
 
-        $(byText("Select State")).scrollIntoView(true);
-        $(byText("Select State")).click();
-        $(byText("Uttar Pradesh")).click();
-        $(byText("Select City")).click();
-        $(byText("Agra")).click();
+        $("#stateCity-wrapper").$(byText("Select State")).scrollIntoView(true).click();
+        $("#stateCity-wrapper").$(byText("Uttar Pradesh")).click();
+        $("#stateCity-wrapper").$(byText("Select City")).click();
+        $("#stateCity-wrapper").$(byText("Agra")).click();
 
         $("button#submit").click();
 
-        $(byText("Thanks for submitting the form")).shouldBe();
+        $(byText("Thanks for submitting the form")).should(exist);
         $x("//td[text()='Student Name']/following-sibling::td").shouldHave(text("Tatiana Ivanovna"));
         $x("//td[text()='Student Email']/following-sibling::td").shouldHave(text("test@tt.tt"));
         $x("//td[text()='Gender']/following-sibling::td").shouldHave(text("Female"));
