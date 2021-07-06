@@ -2,7 +2,7 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.exist;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -49,7 +49,7 @@ public class FormTests {
 
         $("button#submit").click();
 
-        $(byText("Thanks for submitting the form")).should(exist);
+        $(byText("Thanks for submitting the form")).shouldBe(visible);
         $x("//td[text()='Student Name']/following-sibling::td").shouldHave(text("Tatiana Ivanovna"));
         $x("//td[text()='Student Email']/following-sibling::td").shouldHave(text("test@tt.tt"));
         $x("//td[text()='Gender']/following-sibling::td").shouldHave(text("Female"));
